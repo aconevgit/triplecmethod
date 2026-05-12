@@ -402,7 +402,7 @@ button { font-family: var(--font); cursor: pointer; }
 
 .pain-h2 {
   font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.1;
   color: var(--white);
@@ -442,7 +442,7 @@ button { font-family: var(--font); cursor: pointer; }
 }
 
 .pain-body {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   color: #4a4a4c;
   line-height: 1.8;
@@ -465,7 +465,7 @@ button { font-family: var(--font); cursor: pointer; }
 .mechanism-h2 {
   font-size: clamp(28px, 4vw, 48px);
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   line-height: 1.1;
   margin-bottom: 16px;
   text-align: center;
@@ -503,7 +503,7 @@ button { font-family: var(--font); cursor: pointer; }
 
 .mechanism-title {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text);
   margin-bottom: 14px;
@@ -522,20 +522,34 @@ button { font-family: var(--font); cursor: pointer; }
    ============================================= */
 
 #credibility {
-  background: var(--bg-alt);
-  padding: var(--sec-py) var(--pad-x);
+  background: #f5f5f7;
+  padding: 100px var(--pad-x);
+  text-align: center;
 }
 
-.cred-wrap { max-width: var(--max-w); margin: 0 auto; }
+.cred-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
 .cred-header { margin-bottom: 0; }
-.cred-header .eyebrow { color: var(--text-muted); }
+
+.cred-header .eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #6f6f6f;
+  text-align: center;
+}
 
 .cred-h2 {
   font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+  color: #1d1d1f;
+  text-align: center;
+  margin-bottom: 64px;
 }
 
 /* Stats row */
@@ -545,128 +559,107 @@ button { font-family: var(--font); cursor: pointer; }
   justify-content: center;
   flex-wrap: wrap;
   gap: 48px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 32px 0;
-  margin: 48px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 40px 0;
+  margin-bottom: 80px;
 }
 
 .stat { text-align: center; }
 
 .stat-num {
-  font-size: 40px;
+  font-size: 44px;
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: var(--text);
+  color: #1d1d1f;
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .stat-label {
   font-size: 13px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #6f6f6f;
 }
 
-/* Logo row */
-.logo-row-wrap {
-  text-align: center;
-  margin-bottom: 56px;
-}
-
-.logo-row-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-.logo-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 32px;
-}
-
-.logo-ph {
-  width: 120px;
-  height: 40px;
-  background: var(--accent-mid);
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-}
-
-/* Testimonial cards */
+/* Testimonial grid */
 .cred-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  text-align: left;
 }
 
 .cred-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
+  background: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 44px;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cred-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
 }
 
 .cred-tag {
-  display: inline-flex;
-  align-items: center;
-  background: var(--bg-alt);
-  color: var(--text-sec);
+  display: inline-block;
+  background: #f5f5f7;
+  color: #4a4a4c;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 5px 10px;
-  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  border-radius: 100px;
   width: fit-content;
-  margin-bottom: 18px;
-}
-
-.cred-quote {
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.75;
-  color: var(--text);
-  font-style: italic;
-  flex: 1;
   margin-bottom: 24px;
 }
 
-.cred-attr {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
+.cred-quote {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: #1d1d1f;
+  flex: 1;
+  margin-bottom: 32px;
+  position: relative;
 }
 
-.cred-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--accent-mid);
-  flex-shrink: 0;
+.cred-quote::before {
+  content: '\201C';
+  color: #4f46e5;
+  font-size: 2em;
+  line-height: 0;
+  vertical-align: -0.4em;
+  margin-right: 2px;
 }
+
+.cred-quote::after {
+  content: '\201D';
+  color: #4f46e5;
+  font-size: 2em;
+  line-height: 0;
+  vertical-align: -0.4em;
+  margin-left: 2px;
+}
+
+.cred-attr { margin-top: 0; }
 
 .cred-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
+  color: #1d1d1f;
   margin-bottom: 2px;
 }
 
 .cred-company {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
-  color: var(--text-muted);
+  color: #6f6f6f;
 }
 
 /* =============================================
@@ -674,54 +667,67 @@ button { font-family: var(--font); cursor: pointer; }
    ============================================= */
 
 #who-its-for {
-  background: var(--bg);
-  padding: var(--sec-py) var(--pad-x);
+  background: #ffffff;
+  padding: 100px var(--pad-x);
 }
 
-.who-wrap { max-width: var(--max-w); margin: 0 auto; }
+.who-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-.who-header { margin-bottom: 0; }
-.who-header .eyebrow { color: var(--text); }
+.who-header { margin-bottom: 0; text-align: center; }
+.who-header .eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #6f6f6f;
+  text-align: center;
+}
 
 .who-h2 {
   font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.04em;
-  line-height: 1.1;
+  line-height: 1.05;
+  text-align: center;
+  margin-bottom: 64px;
 }
 
 .who-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  margin-top: 48px;
-  position: relative;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
-.who-grid::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  background: var(--border);
-  pointer-events: none;
+.who-card {
+  background: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.who-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
 }
 
 .who-group-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--text);
-  margin-bottom: 24px;
+  color: #1d1d1f;
+  margin-bottom: 32px;
 }
 
 .who-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+  list-style: none;
 }
 
 .who-list li {
@@ -730,18 +736,21 @@ button { font-family: var(--font); cursor: pointer; }
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
+  color: #1d1d1f;
+  align-items: flex-start;
 }
+
+.who-list.who-not li { color: #4a4a4c; }
 
 .who-icon {
+  flex-shrink: 0;
   font-size: 15px;
   font-weight: 700;
-  flex-shrink: 0;
   margin-top: 2px;
-  color: var(--text);
+  color: #4f46e5;
 }
 
-.who-list.who-not li { color: var(--text-sec); }
-.who-icon.no         { color: var(--text-muted); }
+.who-icon.no { color: #6f6f6f; }
 
 /* =============================================
    ABOUT
@@ -754,14 +763,15 @@ button { font-family: var(--font); cursor: pointer; }
 
 .about-wrap { max-width: var(--max-w); margin: 0 auto; }
 
-.about-header { margin-bottom: 0; }
-.about-header .eyebrow { color: var(--text-muted); }
+.about-header { margin-bottom: 0; text-align: center; }
+.about-header .eyebrow { color: var(--text-muted); text-align: center; }
 
 .about-h2 {
   font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1.1;
+  text-align: center;
 }
 
 .about-grid {
@@ -805,8 +815,8 @@ button { font-family: var(--font); cursor: pointer; }
 }
 
 .about-name {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
   color: var(--text);
@@ -847,8 +857,9 @@ button { font-family: var(--font); cursor: pointer; }
 
 .footer-inner {
   width: 100%;
-  max-width: var(--max-w);
+  max-width: 960px;
   margin: 0 auto;
+  padding: 0 var(--pad-x);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -882,7 +893,8 @@ button { font-family: var(--font); cursor: pointer; }
 .pain-card,
 .mechanism-col,
 .cred-card,
-.who-group,
+.stat,
+.who-card,
 .about-col {
   opacity: 0;
   transform: translateY(24px);
@@ -892,7 +904,8 @@ button { font-family: var(--font); cursor: pointer; }
 .pain-card.visible,
 .mechanism-col.visible,
 .cred-card.visible,
-.who-group.visible,
+.stat.visible,
+.who-card.visible,
 .about-col.visible {
   opacity: 1;
   transform: translateY(0);
@@ -1085,12 +1098,12 @@ button { font-family: var(--font); cursor: pointer; }
 <!-- ========== END MECHANISM ========== -->
 
 <!-- ========== CREDIBILITY ========== -->
-<section id="credibility" aria-label="Why it works">
+<section id="credibility" aria-label="Client results">
   <div class="cred-wrap">
 
     <div class="cred-header">
-      <span class="eyebrow">Why It Works</span>
-      <h2 class="cred-h2">Tested in the field. Not in a classroom.</h2>
+      <span class="eyebrow">Client Results</span>
+      <h2 class="cred-h2">What changes when the system is in place.</h2>
     </div>
 
     <div class="stats-row" aria-label="Key statistics">
@@ -1112,51 +1125,41 @@ button { font-family: var(--font); cursor: pointer; }
       </div>
     </div>
 
-    <div class="logo-row-wrap">
-      <p class="logo-row-label">Trusted by teams at</p>
-      <div class="logo-row" aria-label="Client logos">
-        <div class="logo-ph" aria-hidden="true"></div>
-        <div class="logo-ph" aria-hidden="true"></div>
-        <div class="logo-ph" aria-hidden="true"></div>
-        <div class="logo-ph" aria-hidden="true"></div>
-      </div>
-    </div>
-
     <div class="cred-grid">
 
       <div class="cred-card">
-        <span class="cred-tag">Fintech</span>
-        <p class="cred-quote">"Two months. That's what we were losing on every implementation just because nobody had written down what we actually agreed to. It sounds almost embarrassingly simple when you say it out loud. But when you're in it, you can't see it. We can now."</p>
+        <span class="cred-tag">Clinical Research</span>
+        <p class="cred-quote">I will be honest. I was sceptical. We have been through consultants before and usually what comes out the other side is a thick document nobody reads. This was different. Sen spent time understanding how our world actually works. The regulators, the tissue sample protocols, the institutional politics. What he built fits our reality. We have not had a single client escalation since we implemented it. For a business like ours, that is not a nice metric. That is existential.</p>
         <div class="cred-attr">
-          <div class="cred-avatar" aria-hidden="true"></div>
-          <div>
-            <p class="cred-name">[CEO Name] · CEO</p>
-            <p class="cred-company">Finrelay</p>
-          </div>
+          <p class="cred-name">[CEO Name], CEO</p>
+          <p class="cred-company">Fidelis</p>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <span class="cred-tag">Fintech</span>
+        <p class="cred-quote">Two months. That is what we were losing on every implementation just because nobody had written down what we actually agreed to. It sounds almost embarrassingly simple when you say it out loud. But when you are in it, you cannot see it. We can now.</p>
+        <div class="cred-attr">
+          <p class="cred-name">[CEO Name], CEO</p>
+          <p class="cred-company">Finrelay</p>
         </div>
       </div>
 
       <div class="cred-card">
         <span class="cred-tag">B2B Gaming &amp; Crypto</span>
-        <p class="cred-quote">"Every client we onboard has different requirements — different markets, different regulations, different technical setups. We were reinventing the wheel every single time. We have a process now. Obvious in hindsight. Painful to admit we didn't have it before."</p>
+        <p class="cred-quote">Every client we onboard has different requirements. Different markets, different regulations, different technical setups. We were reinventing the wheel every single time and wondering why it was taking so long. We have a process now. Obvious in hindsight. Painful to admit we did not have it before.</p>
         <div class="cred-attr">
-          <div class="cred-avatar" aria-hidden="true"></div>
-          <div>
-            <p class="cred-name">[CEO Name] · CEO</p>
-            <p class="cred-company">Cubeia</p>
-          </div>
+          <p class="cred-name">[CEO Name], CEO</p>
+          <p class="cred-company">Cubeia</p>
         </div>
       </div>
 
       <div class="cred-card">
         <span class="cred-tag">Property Technology</span>
-        <p class="cred-quote">"Germany is a relationship market. Our clients don't forgive mistakes easily. The workshop did something I didn't expect. It didn't just give my team a process. It changed how they think about the client. That's harder to do than it sounds."</p>
+        <p class="cred-quote">Germany is a relationship market. Our clients do not forgive mistakes easily and they do not give second chances. I needed my account managers to understand that showing up prepared is not optional. It is the baseline. The workshop did something I did not expect. It did not just give them a process. It changed how they think about the client. That is harder to do than it sounds.</p>
         <div class="cred-attr">
-          <div class="cred-avatar" aria-hidden="true"></div>
-          <div>
-            <p class="cred-name">[CEO Name] · CEO</p>
-            <p class="cred-company">Intelliwayz</p>
-          </div>
+          <p class="cred-name">[CEO Name], CEO</p>
+          <p class="cred-company">Intelliwayz</p>
         </div>
       </div>
 
@@ -1177,7 +1180,7 @@ button { font-family: var(--font); cursor: pointer; }
 
     <div class="who-grid">
 
-      <div class="who-group">
+      <div class="who-card who-yes">
         <h3 class="who-group-title">This is for you if&hellip;</h3>
         <ul class="who-list">
           <li><span class="who-icon" aria-hidden="true">✓</span><span>You run a B2B service business with a client-facing delivery team</span></li>
@@ -1187,7 +1190,7 @@ button { font-family: var(--font); cursor: pointer; }
         </ul>
       </div>
 
-      <div class="who-group">
+      <div class="who-card who-no">
         <h3 class="who-group-title">This is not for you if&hellip;</h3>
         <ul class="who-list who-not">
           <li><span class="who-icon no" aria-hidden="true">×</span><span>You are still validating whether you have a product-market fit</span></li>
@@ -1250,7 +1253,7 @@ button { font-family: var(--font); cursor: pointer; }
   <div class="footer-inner">
 
     <a href="#" class="footer-logo" aria-label="Triple C Method — home">
-      <svg width="28" height="26" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg width="22" height="20" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="24" cy="7" r="7" fill="white"/>
         <circle cx="7" cy="37" r="6" fill="none" stroke="white" stroke-width="2"/>
         <circle cx="41" cy="37" r="6" fill="none" stroke="white" stroke-width="2"/>
@@ -1258,7 +1261,7 @@ button { font-family: var(--font); cursor: pointer; }
       <span class="footer-logo-text">Triple C Method<span style="font-size:0.6em; vertical-align:0.5em; font-weight:400; letter-spacing:0;">™</span></span>
     </a>
 
-    <span class="footer-copy">© <span id="footer-year"></span> Triple C Method · Sofia, Bulgaria</span>
+    <span class="footer-copy">© 2026 Triple C Method<span style="font-size:0.75em; vertical-align:0.4em; font-weight:400; letter-spacing:0;">™</span></span>
 
   </div>
 </footer>
@@ -1366,7 +1369,7 @@ button { font-family: var(--font); cursor: pointer; }
      ========================================== */
 
   var animEls = document.querySelectorAll(
-    '.pain-card, .mechanism-col, .cred-card, .who-group, .about-col'
+    '.pain-card, .mechanism-col, .cred-card, .stat, .who-card, .about-col'
   );
 
   if ('IntersectionObserver' in window) {
