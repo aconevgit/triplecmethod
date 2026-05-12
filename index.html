@@ -73,7 +73,7 @@ button { font-family: var(--font); cursor: pointer; }
 
 .eyebrow {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -378,15 +378,27 @@ button { font-family: var(--font); cursor: pointer; }
    ============================================= */
 
 #pain {
-  background: var(--bg-dark);
+  background: #1d1d1f;
   color: var(--white);
-  padding: var(--sec-py) var(--pad-x);
+  padding: 80px var(--pad-x);
 }
 
-.pain-wrap { max-width: var(--max-w); margin: 0 auto; }
+.pain-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-.pain-header { margin-bottom: 56px; }
-.pain-header .eyebrow { color: var(--text-muted); }
+.pain-header {
+  margin-bottom: 48px;
+}
+
+.pain-header .eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-align: center;
+}
 
 .pain-h2 {
   font-size: clamp(28px, 4vw, 48px);
@@ -395,71 +407,46 @@ button { font-family: var(--font); cursor: pointer; }
   line-height: 1.1;
   color: var(--white);
   margin-bottom: 16px;
-}
-
-.pain-sub {
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 560px;
+  text-align: center;
 }
 
 .pain-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-bottom: 48px;
+  align-items: stretch;
 }
 
 .pain-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius);
-  padding: 32px;
+  background: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 40px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.pain-num {
-  font-size: 48px;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  color: rgba(255, 255, 255, 0.1);
-  line-height: 1;
-  margin-bottom: 20px;
+.pain-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
+
+.pain-num { display: none; }
 
 .pain-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--white);
-  margin-bottom: 10px;
-  line-height: 1.2;
+  color: #1d1d1f;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
 }
 
 .pain-body {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.6);
+  color: #4a4a4c;
+  line-height: 1.8;
 }
-
-.pain-video-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--white);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  text-decoration: none;
-  transition: opacity 0.18s;
-}
-
-.pain-video-trigger:hover { opacity: 0.7; }
-.pain-video-trigger:hover .arr { text-decoration: underline; }
 
 /* =============================================
    MECHANISM
@@ -472,23 +459,26 @@ button { font-family: var(--font); cursor: pointer; }
 
 .mechanism-wrap { max-width: var(--max-w); margin: 0 auto; }
 
-.mechanism-header { margin-bottom: 64px; }
-.mechanism-header .eyebrow { color: var(--text); }
+.mechanism-header { margin-bottom: 64px; text-align: center; }
+.mechanism-header .eyebrow { color: var(--text); text-align: center; }
 
 .mechanism-h2 {
   font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-weight: 900;
+  letter-spacing: -0.05em;
   line-height: 1.1;
   margin-bottom: 16px;
+  text-align: center;
 }
 
 .mechanism-sub {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1.65;
   color: var(--text-sec);
-  max-width: 560px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .mechanism-grid {
@@ -954,7 +944,7 @@ button { font-family: var(--font); cursor: pointer; }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .pain-grid  { grid-template-columns: repeat(2, 1fr); }
+  .pain-grid  { grid-template-columns: repeat(3, 1fr); }
   .cred-grid  { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
 
@@ -1024,40 +1014,35 @@ button { font-family: var(--font); cursor: pointer; }
 <!-- ========== END VIDEO MODAL ========== -->
 
 <!-- ========== PAIN ========== -->
-<section id="pain" aria-label="The problem">
+<section id="pain" aria-label="The warning signs">
   <div class="pain-wrap">
 
     <div class="pain-header">
-      <span class="eyebrow">The Real Problem</span>
-      <h2 class="pain-h2">Your delivery is leaking value. Silently.</h2>
-      <p class="pain-sub">Most businesses over-optimise their product or service and completely ignore how they deliver it. The gap between what you create and what your client feels is where revenue, trust, and retention quietly disappear.</p>
+      <span class="eyebrow">The Warning Signs</span>
+      <h2 class="pain-h2">Your people are busy, but you are still losing clients.</h2>
     </div>
 
     <div class="pain-grid">
 
       <div class="pain-card">
         <div class="pain-num" aria-hidden="true">01</div>
-        <h3 class="pain-title">The Contract Gap</h3>
-        <p class="pain-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+        <h3 class="pain-title">Every client call feels like walking in unprepared</h3>
+        <p class="pain-body">Your team is not aligned. Someone goes off-script. A colleague contradicts another one in front of the client. You smile through it and spend the rest of the day wondering if they are already talking to someone else.</p>
       </div>
 
       <div class="pain-card">
         <div class="pain-num" aria-hidden="true">02</div>
-        <h3 class="pain-title">The Communication Gap</h3>
-        <p class="pain-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+        <h3 class="pain-title">Silence. Then an escalation nobody saw coming.</h3>
+        <p class="pain-body">No warnings. No friction. Just quiet and then your CEO is on the phone with your client and you are the last to know. By the time it reaches that level, the relationship is already halfway out the door.</p>
       </div>
 
       <div class="pain-card">
         <div class="pain-num" aria-hidden="true">03</div>
-        <h3 class="pain-title">The Calendar Gap</h3>
-        <p class="pain-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+        <h3 class="pain-title">You keep saying yes. And the engagement keeps bleeding.</h3>
+        <p class="pain-body">One extra requirement. Then another. You absorb it to protect the relationship. Six months in, you are delivering twice the work for the same fee and the client still is not satisfied.</p>
       </div>
 
     </div>
-
-    <button class="pain-video-trigger" id="open-video-2" aria-label="Watch the 14-minute breakdown">
-      Watch the 14-minute breakdown →
-    </button>
 
   </div>
 </section>
