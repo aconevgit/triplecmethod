@@ -757,77 +757,88 @@ button { font-family: var(--font); cursor: pointer; }
    ============================================= */
 
 #about {
-  background: var(--bg-alt);
-  padding: var(--sec-py) var(--pad-x);
+  background: #f5f5f7;
+  padding: 100px var(--pad-x);
 }
 
-.about-wrap { max-width: var(--max-w); margin: 0 auto; }
+.about-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-.about-header { margin-bottom: 0; text-align: center; }
-.about-header .eyebrow { color: var(--text-muted); text-align: center; }
+.about-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.about-header .eyebrow {
+  color: #6f6f6f;
+  text-align: center;
+}
 
 .about-h2 {
   font-size: clamp(28px, 4vw, 48px);
   font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+  color: #1d1d1f;
   text-align: center;
 }
 
 .about-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 48px;
-  margin-top: 48px;
+  gap: 24px;
+}
+
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; }
 }
 
 .about-col {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 40px;
+  background: #ffffff;
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.about-col-label {
+.about-col:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+}
+
+.about-img {
   display: block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 20px;
+  width: 100%;
+  height: 280px;
+  background: #e5e5e5;
+  object-fit: cover;
 }
 
-.about-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--accent-mid);
-  margin-bottom: 16px;
-}
-
-.about-logo-ph {
-  width: 80px;
-  height: 40px;
-  background: var(--accent-mid);
-  border-radius: var(--radius-sm);
-  margin-bottom: 16px;
+.about-body-wrap {
+  padding: 36px 40px 40px;
 }
 
 .about-name {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.1;
-  color: var(--text);
-  margin-bottom: 6px;
+  color: #1d1d1f;
+  margin-bottom: 4px;
 }
 
 .about-role {
   font-size: 15px;
   font-weight: 500;
-  color: var(--text-muted);
-  margin-bottom: 28px;
+  color: #6f6f6f;
+  margin-bottom: 24px;
+}
+
+.about-divider {
+  border: none;
+  border-top: 1px solid #e5e5e5;
+  margin-bottom: 24px;
 }
 
 .about-body {
@@ -839,8 +850,8 @@ button { font-family: var(--font); cursor: pointer; }
 .about-body p {
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.75;
-  color: var(--text-sec);
+  line-height: 1.8;
+  color: #4a4a4c;
 }
 
 /* =============================================
@@ -1106,25 +1117,6 @@ button { font-family: var(--font); cursor: pointer; }
       <h2 class="cred-h2">What changes when the system is in place.</h2>
     </div>
 
-    <div class="stats-row" aria-label="Key statistics">
-      <div class="stat">
-        <div class="stat-num">17+</div>
-        <div class="stat-label">Years in delivery</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">3</div>
-        <div class="stat-label">PMOs built from scratch</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">60K+</div>
-        <div class="stat-label">Practitioners trained</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">PMI</div>
-        <div class="stat-label">PMO of the Year 2021</div>
-      </div>
-    </div>
-
     <div class="cred-grid">
 
       <div class="cred-card">
@@ -1211,34 +1203,37 @@ button { font-family: var(--font); cursor: pointer; }
   <div class="about-wrap">
 
     <div class="about-header">
-      <span class="eyebrow">Behind the Framework</span>
+      <span class="eyebrow">BEHIND THE FRAMEWORK</span>
       <h2 class="about-h2">Built from 15 years inside the problem.</h2>
     </div>
 
     <div class="about-grid">
 
       <div class="about-col">
-        <span class="about-col-label">The Founder</span>
-        <div class="about-avatar" role="img" aria-label="Asen Conev"></div>
-        <h3 class="about-name">Asen Conev</h3>
-        <p class="about-role">Client-Facing Delivery Specialist</p>
-        <div class="about-body">
-          <p>I have spent 15 years inside complex client-facing environments — agencies, tech companies, enterprise delivery, and everything in between. I have been the person managing the relationship, the person getting the escalation call, and the person sitting across the table from a client who has lost confidence.</p>
-          <p>The Triple C Method is not something I read about. It is what I built because I needed it — because I watched good work get destroyed by broken systems around it, and I decided to do something about it.</p>
-          <p>This is not project management theory. There are no frameworks borrowed from a textbook. Everything has been tested in real engagements, with real clients, under real pressure. It is simplified on purpose — because complexity is the enemy of execution.</p>
-          <p>If you are looking for an academic approach, this is not it. If you want something practical that works in your industry and your business, starting this week — keep reading.</p>
+        <img src="images/asen_conev.webp" alt="Asen Conev" width="936" height="560" loading="lazy" style="width:100%; height:280px; object-fit:cover; object-position:center top;">
+        <div class="about-body-wrap">
+          <h3 class="about-name">Asen Conev</h3>
+          <p class="about-role">Client-Facing Delivery Specialist</p>
+          <hr class="about-divider">
+          <div class="about-body">
+            <p>I have spent 15 years inside complex client-facing environments. Agencies, tech companies, enterprise delivery, and everything in between. I have been the person managing the relationship, the person getting the escalation call, and the person sitting across the table from a client who has lost confidence.</p>
+            <p>The Triple C Method is not something I read about. It is what I built because I needed it. Because I watched good work get destroyed by broken systems around it, and I decided to do something about it.</p>
+            <p>This is not project management theory. There are no frameworks borrowed from a textbook. Everything in the Triple C Method has been tested in real engagements, with real clients, under real pressure. It is simplified on purpose because complexity is the enemy of execution.</p>
+          </div>
         </div>
       </div>
 
       <div class="about-col">
-        <span class="about-col-label">The Company</span>
-        <div class="about-logo-ph" role="img" aria-label="Triple C Method"></div>
-        <h3 class="about-name">Triple C Method</h3>
-        <p class="about-role">B2B Client-Facing Delivery</p>
-        <div class="about-body">
-          <p>Triple C Method is built on a simple observation — most B2B service businesses over-invest in what they deliver and under-invest in how it is perceived.</p>
-          <p>The discipline we practise borrows from client psychology, delivery operations, and commercial strategy to close the gap between the value you create and the value your client actually feels. The Triple C Method is the operational foundation of that work — the delivery layer that makes everything else possible.</p>
-          <p>We work with a small number of clients at a time. That is by design. The work is specific, applied, and hands-on — not a course you buy and never finish.</p>
+        <img class="about-img" src="" alt="Triple C Method">
+        <div class="about-body-wrap">
+          <h3 class="about-name">Triple C Method</h3>
+          <p class="about-role">B2B Client-Facing Delivery</p>
+          <hr class="about-divider">
+          <div class="about-body">
+            <p>Triple C Method is built on a simple observation. Most B2B service businesses over-invest in what they deliver and under-invest in how it is perceived.</p>
+            <p>The discipline we practise is called Value Management. It borrows from client psychology, delivery operations, and commercial strategy to close the gap between the value you create and the value your client actually feels.</p>
+            <p>We work with a small number of clients at a time. That is by design. The work is specific, applied, and hands-on — not a course you buy and never finish.</p>
+          </div>
         </div>
       </div>
 
