@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triple C Method — Client-Facing Delivery That Simply Works</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
+
+:root {
+  --bg:           #ffffff;
+  --bg-alt:       #f5f5f7;
+  --bg-dark:      #1d1d1f;
+  --accent:       #1d1d1f;
+  --accent-hover: #000000;
+  --accent-pale:  #f5f5f7;
+  --accent-mid:   #e5e5e5;
+  --text:         #1d1d1f;
+  --text-sec:     #4a4a4c;
+  --text-muted:   #6f6f6f;
+  --border:       #e5e5e5;
+  --white:        #ffffff;
+
+  --indigo:       #4f46e5;
+  --indigo-hover: #4338ca;
+  --indigo-pale:  #c7d2fe;
+
+  --font:     'Inter', sans-serif;
+  --max-w:    1120px;
+  --pad-x:    clamp(24px, 5vw, 80px);
+  --sec-py:   80px;
+  --nav-h:    60px;
+  --radius:   8px;
+  --radius-sm: 4px;
+  --radius-pill: 100px;
+}
+
+/* =============================================
+   RESET
+   ============================================= */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html  { scroll-behavior: smooth; }
+body  {
+  font-family: var(--font);
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a     { text-decoration: none; color: inherit; }
+img, svg { display: block; }
+ul    { list-style: none; }
+button { font-family: var(--font); cursor: pointer; }
+:focus-visible { outline: 2px solid var(--indigo); outline-offset: 3px; }
+
+/* =============================================
+   SHARED UTILITIES
+   ============================================= */
+
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* =============================================
+   SCROLL PROGRESS BAR
+   ============================================= */
+
+#progress-bar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--indigo-pale);
+  z-index: 99;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+
+#nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+#nav.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-inner {
+  height: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-text {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.nav-logo-text sup,
+.footer-logo-text sup {
+  font-size: 0.75em;
+  vertical-align: 0.4em;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  padding: 12px 0;
+}
+
+.nav-cta .arr {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-style: normal;
+}
+
+.nav-cta:hover .arr { transform: translateX(4px); }
+
+/* =============================================
+   HERO
+   ============================================= */
+
+#hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79, 70, 229, 0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 40% at 80% 20%, rgba(199, 210, 254, 0.12) 0%, transparent 50%),
+              linear-gradient(180deg, #fafafa 0%, #ffffff 60%, #f5f5f7 100%);
+  background-attachment: fixed;
+  padding: calc(var(--nav-h) + 20px) var(--pad-x) 64px;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 960px;
+  width: 100%;
+  animation: heroFadeIn 0.6s ease 0.1s both;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero eyebrow override */
+.hero-content .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; }
+
+/* H1 */
+.hero-h1 {
+  font-size: clamp(28px, 8vw, 72px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+/* Subheadline */
+.hero-sub {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--text-sec);
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+
+/* CTAs */
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--indigo);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: var(--indigo-hover);
+  transform: scale(1.02);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  transition: all 0.1s ease;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 14px 0;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  color: var(--text);
+}
+
+/* =============================================
+   VIDEO MODAL
+   ============================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.modal-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+
+.modal-close:hover { color: #fff; }
+
+.modal-video {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.modal-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.modal-tagline {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+}
+
+.modal-cta {
+  display: inline-block;
+  background: var(--indigo);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.modal-cta:hover { background: var(--indigo-hover); }
+
+/* =============================================
+   PAIN
+   ============================================= */
+
+#pain {
+  background: var(--bg-dark);
+  color: var(--white);
+  padding: var(--sec-py) var(--pad-x);
+}
+
+.pain-wrap { max-width: var(--max-w); margin: 0 auto; }
+
+.pain-header { margin-bottom: 56px; }
+.pain-header .eyebrow { color: var(--text-muted); }
+
+.pain-h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.pain-sub {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 560px;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.pain-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.pain-num {
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: rgba(255, 255, 255, 0.1);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.pain-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.pain-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pain-video-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.18s;
+}
+
+.pain-video-trigger:hover { opacity: 0.7; }
+.pain-video-trigger:hover .arr { text-decoration: underline; }
+
+/* =============================================
+   MECHANISM
+   ============================================= */
+
+#mechanism {
+  background: var(--bg);
+  padding: var(--sec-py) var(--pad-x);
+}
+
+.mechanism-wrap { max-width: var(--max-w); margin: 0 auto; }
+
+.mechanism-header { margin-bottom: 64px; }
+.mechanism-header .eyebrow { color: var(--text); }
+
+.mechanism-h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.mechanism-sub {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--text-sec);
+  max-width: 560px;
+}
+
+.mechanism-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+.mechanism-col {
+  border-top: 2px solid var(--accent);
+  padding-top: 32px;
+}
+
+.mechanism-num {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.mechanism-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.mechanism-body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-sec);
+}
+
+/* =============================================
+   CREDIBILITY
+   ============================================= */
+
+#credibility {
+  background: var(--bg-alt);
+  padding: var(--sec-py) var(--pad-x);
+}
+
+.cred-wrap { max-width: var(--max-w); margin: 0 auto; }
+
+.cred-header { margin-bottom: 0; }
+.cred-header .eyebrow { color: var(--text-muted); }
+
+.cred-h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 48px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 0;
+  margin: 48px 0;
+}
+
+.stat { text-align: center; }
+
+.stat-num {
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Logo row */
+.logo-row-wrap {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.logo-row-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.logo-ph {
+  width: 120px;
+  height: 40px;
+  background: var(--accent-mid);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+/* Testimonial cards */
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.cred-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cred-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-alt);
+  color: var(--text-sec);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+  margin-bottom: 18px;
+}
+
+.cred-quote {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text);
+  font-style: italic;
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.cred-attr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.cred-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-mid);
+  flex-shrink: 0;
+}
+
+.cred-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+
+.cred-company {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* =============================================
+   WHO-ITS-FOR
+   ============================================= */
+
+#who-its-for {
+  background: var(--bg);
+  padding: var(--sec-py) var(--pad-x);
+}
+
+.who-wrap { max-width: var(--max-w); margin: 0 auto; }
+
+.who-header { margin-bottom: 0; }
+.who-header .eyebrow { color: var(--text); }
+
+.who-h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.who-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 48px;
+  position: relative;
+}
+
+.who-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
+
+.who-group-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.who-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.who-list li {
+  display: flex;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.who-icon {
+  font-size: 15px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--text);
+}
+
+.who-list.who-not li { color: var(--text-sec); }
+.who-icon.no         { color: var(--text-muted); }
+
+/* =============================================
+   ABOUT
+   ============================================= */
+
+#about {
+  background: var(--bg-alt);
+  padding: var(--sec-py) var(--pad-x);
+}
+
+.about-wrap { max-width: var(--max-w); margin: 0 auto; }
+
+.about-header { margin-bottom: 0; }
+.about-header .eyebrow { color: var(--text-muted); }
+
+.about-h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.about-col {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+}
+
+.about-col-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.about-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent-mid);
+  margin-bottom: 16px;
+}
+
+.about-logo-ph {
+  width: 80px;
+  height: 40px;
+  background: var(--accent-mid);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.about-name {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.about-role {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-body p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-sec);
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+
+#footer {
+  background: var(--bg-dark);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(24px, 4vw, 32px);
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo-text {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.footer-copy {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+}
+
+/* =============================================
+   SCROLL ANIMATION STATES
+   ============================================= */
+
+.pain-card,
+.mechanism-col,
+.cred-card,
+.who-group,
+.about-col {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.pain-card.visible,
+.mechanism-col.visible,
+.cred-card.visible,
+.who-group.visible,
+.about-col.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 767px) {
+  :root {
+    --nav-h:  56px;
+    --sec-py: 60px;
+  }
+
+  .pain-grid,
+  .mechanism-grid,
+  .cred-grid,
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .who-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .who-grid::after { display: none; }
+
+  .stats-row { gap: 28px; }
+
+  .hero-h1 { letter-spacing: -0.03em; }
+
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .btn-primary,
+  .btn-secondary { width: 100%; justify-content: center; }
+
+  #footer {
+    height: auto;
+    padding: 20px var(--pad-x);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .pain-grid  { grid-template-columns: repeat(2, 1fr); }
+  .cred-grid  { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; }
+
+  .mechanism-grid { gap: 32px; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar" aria-hidden="true"></div>
+
+<!-- ========== NAV ========== -->
+<nav id="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+
+    <a href="#" class="nav-logo" aria-label="Triple C Method — home">
+      <svg width="22" height="20" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="7" r="7" fill="#1d1d1f"/>
+        <circle cx="7" cy="37" r="6" fill="none" stroke="#1d1d1f" stroke-width="2"/>
+        <circle cx="41" cy="37" r="6" fill="none" stroke="#1d1d1f" stroke-width="2"/>
+      </svg>
+      <span class="nav-logo-text">Triple C Method<span style="font-size:0.6em; vertical-align:0.5em; font-weight:400; letter-spacing:0;">™</span></span>
+    </a>
+
+    <a href="#contact" class="nav-cta">Get in touch <span class="arr" aria-hidden="true">→</span></a>
+
+  </div>
+</nav>
+<!-- ========== END NAV ========== -->
+
+<!-- ========== HERO ========== -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-content">
+
+    <p class="eyebrow" style="color:var(--indigo);margin-bottom:16px;">The gap nobody is talking about</p>
+
+    <h1 class="hero-h1">
+      Weak client-facing behaviour silently <span style="position:relative; display:inline; white-space:nowrap;">destroys<span style="position:absolute; bottom:2px; left:0; right:0; height:12px; background:rgba(79,70,229,0.12); z-index:-1; border-radius:3px;"></span></span> trust, deals, and retention.
+    </h1>
+
+    <p class="hero-sub">
+      Most businesses obsess over improving their product or service while ignoring how it is actually delivered. Clients experience your people before they experience your expertise.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary" id="open-video">Fix these 3 things first →</a>
+      <a href="#contact" class="btn-secondary">Let's talk</a>
+    </div>
+
+
+  </div>
+</section>
+<!-- ========== END HERO ========== -->
+
+<!-- ========== VIDEO MODAL ========== -->
+<div id="modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Video player">
+  <div class="modal-container">
+    <button id="close-modal" class="modal-close" aria-label="Close video">✕</button>
+    <div class="modal-video" id="modal-video-wrap"></div>
+    <div class="modal-footer">
+      <p class="modal-tagline">Want a personalised breakdown for your business?</p>
+      <a href="#contact" class="modal-cta" id="modal-cta-link">Get in touch</a>
+    </div>
+  </div>
+</div>
+<!-- ========== END VIDEO MODAL ========== -->
+
+<!-- ========== PAIN ========== -->
+<section id="pain" aria-label="The problem">
+  <div class="pain-wrap">
+
+    <div class="pain-header">
+      <span class="eyebrow">The Real Problem</span>
+      <h2 class="pain-h2">Your delivery is leaking value. Silently.</h2>
+      <p class="pain-sub">Most businesses over-optimise their product or service and completely ignore how they deliver it. The gap between what you create and what your client feels is where revenue, trust, and retention quietly disappear.</p>
+    </div>
+
+    <div class="pain-grid">
+
+      <div class="pain-card">
+        <div class="pain-num" aria-hidden="true">01</div>
+        <h3 class="pain-title">The Contract Gap</h3>
+        <p class="pain-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-num" aria-hidden="true">02</div>
+        <h3 class="pain-title">The Communication Gap</h3>
+        <p class="pain-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-num" aria-hidden="true">03</div>
+        <h3 class="pain-title">The Calendar Gap</h3>
+        <p class="pain-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+      </div>
+
+    </div>
+
+    <button class="pain-video-trigger" id="open-video-2" aria-label="Watch the 14-minute breakdown">
+      Watch the 14-minute breakdown →
+    </button>
+
+  </div>
+</section>
+<!-- ========== END PAIN ========== -->
+
+<!-- ========== MECHANISM ========== -->
+<section id="mechanism" aria-label="The Triple C Method">
+  <div class="mechanism-wrap">
+
+    <div class="mechanism-header">
+      <span class="eyebrow">The Triple C Method</span>
+      <h2 class="mechanism-h2">Three levers. Applied in sequence. No exceptions.</h2>
+      <p class="mechanism-sub">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.</p>
+    </div>
+
+    <div class="mechanism-grid">
+
+      <div class="mechanism-col">
+        <div class="mechanism-num" aria-hidden="true">01</div>
+        <h3 class="mechanism-title">Contract</h3>
+        <p class="mechanism-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+      </div>
+
+      <div class="mechanism-col">
+        <div class="mechanism-num" aria-hidden="true">02</div>
+        <h3 class="mechanism-title">Communication</h3>
+        <p class="mechanism-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+      </div>
+
+      <div class="mechanism-col">
+        <div class="mechanism-num" aria-hidden="true">03</div>
+        <h3 class="mechanism-title">Calendar</h3>
+        <p class="mechanism-body">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ========== END MECHANISM ========== -->
+
+<!-- ========== CREDIBILITY ========== -->
+<section id="credibility" aria-label="Why it works">
+  <div class="cred-wrap">
+
+    <div class="cred-header">
+      <span class="eyebrow">Why It Works</span>
+      <h2 class="cred-h2">Tested in the field. Not in a classroom.</h2>
+    </div>
+
+    <div class="stats-row" aria-label="Key statistics">
+      <div class="stat">
+        <div class="stat-num">17+</div>
+        <div class="stat-label">Years in delivery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">PMOs built from scratch</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">60K+</div>
+        <div class="stat-label">Practitioners trained</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">PMI</div>
+        <div class="stat-label">PMO of the Year 2021</div>
+      </div>
+    </div>
+
+    <div class="logo-row-wrap">
+      <p class="logo-row-label">Trusted by teams at</p>
+      <div class="logo-row" aria-label="Client logos">
+        <div class="logo-ph" aria-hidden="true"></div>
+        <div class="logo-ph" aria-hidden="true"></div>
+        <div class="logo-ph" aria-hidden="true"></div>
+        <div class="logo-ph" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="cred-grid">
+
+      <div class="cred-card">
+        <span class="cred-tag">Fintech</span>
+        <p class="cred-quote">"Two months. That's what we were losing on every implementation just because nobody had written down what we actually agreed to. It sounds almost embarrassingly simple when you say it out loud. But when you're in it, you can't see it. We can now."</p>
+        <div class="cred-attr">
+          <div class="cred-avatar" aria-hidden="true"></div>
+          <div>
+            <p class="cred-name">[CEO Name] · CEO</p>
+            <p class="cred-company">Finrelay</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <span class="cred-tag">B2B Gaming &amp; Crypto</span>
+        <p class="cred-quote">"Every client we onboard has different requirements — different markets, different regulations, different technical setups. We were reinventing the wheel every single time. We have a process now. Obvious in hindsight. Painful to admit we didn't have it before."</p>
+        <div class="cred-attr">
+          <div class="cred-avatar" aria-hidden="true"></div>
+          <div>
+            <p class="cred-name">[CEO Name] · CEO</p>
+            <p class="cred-company">Cubeia</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cred-card">
+        <span class="cred-tag">Property Technology</span>
+        <p class="cred-quote">"Germany is a relationship market. Our clients don't forgive mistakes easily. The workshop did something I didn't expect. It didn't just give my team a process. It changed how they think about the client. That's harder to do than it sounds."</p>
+        <div class="cred-attr">
+          <div class="cred-avatar" aria-hidden="true"></div>
+          <div>
+            <p class="cred-name">[CEO Name] · CEO</p>
+            <p class="cred-company">Intelliwayz</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ========== END CREDIBILITY ========== -->
+
+<!-- ========== WHO-ITS-FOR ========== -->
+<section id="who-its-for" aria-label="Who this is for">
+  <div class="who-wrap">
+
+    <div class="who-header">
+      <span class="eyebrow">Is This For You?</span>
+      <h2 class="who-h2">Built for founders who deliver to clients.</h2>
+    </div>
+
+    <div class="who-grid">
+
+      <div class="who-group">
+        <h3 class="who-group-title">This is for you if&hellip;</h3>
+        <ul class="who-list">
+          <li><span class="who-icon" aria-hidden="true">✓</span><span>You run a B2B service business with a client-facing delivery team</span></li>
+          <li><span class="who-icon" aria-hidden="true">✓</span><span>You have had at least one client escalation in the past 12 months</span></li>
+          <li><span class="who-icon" aria-hidden="true">✓</span><span>Your team is good at the work but struggles with how the work is managed</span></li>
+          <li><span class="who-icon" aria-hidden="true">✓</span><span>You want a practical system, not another methodology to read about</span></li>
+        </ul>
+      </div>
+
+      <div class="who-group">
+        <h3 class="who-group-title">This is not for you if&hellip;</h3>
+        <ul class="who-list who-not">
+          <li><span class="who-icon no" aria-hidden="true">×</span><span>You are still validating whether you have a product-market fit</span></li>
+          <li><span class="who-icon no" aria-hidden="true">×</span><span>You deliver to consumers, not businesses</span></li>
+          <li><span class="who-icon no" aria-hidden="true">×</span><span>You are looking for a magic fix that requires no internal work</span></li>
+          <li><span class="who-icon no" aria-hidden="true">×</span><span>You want a large consulting firm with a 50-page report</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ========== END WHO-ITS-FOR ========== -->
+
+<!-- ========== ABOUT ========== -->
+<section id="about" aria-label="About">
+  <div class="about-wrap">
+
+    <div class="about-header">
+      <span class="eyebrow">Behind the Framework</span>
+      <h2 class="about-h2">Built from 15 years inside the problem.</h2>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-col">
+        <span class="about-col-label">The Founder</span>
+        <div class="about-avatar" role="img" aria-label="Asen Conev"></div>
+        <h3 class="about-name">Asen Conev</h3>
+        <p class="about-role">Client-Facing Delivery Specialist</p>
+        <div class="about-body">
+          <p>I have spent 15 years inside complex client-facing environments — agencies, tech companies, enterprise delivery, and everything in between. I have been the person managing the relationship, the person getting the escalation call, and the person sitting across the table from a client who has lost confidence.</p>
+          <p>The Triple C Method is not something I read about. It is what I built because I needed it — because I watched good work get destroyed by broken systems around it, and I decided to do something about it.</p>
+          <p>This is not project management theory. There are no frameworks borrowed from a textbook. Everything has been tested in real engagements, with real clients, under real pressure. It is simplified on purpose — because complexity is the enemy of execution.</p>
+          <p>If you are looking for an academic approach, this is not it. If you want something practical that works in your industry and your business, starting this week — keep reading.</p>
+        </div>
+      </div>
+
+      <div class="about-col">
+        <span class="about-col-label">The Company</span>
+        <div class="about-logo-ph" role="img" aria-label="Triple C Method"></div>
+        <h3 class="about-name">Triple C Method</h3>
+        <p class="about-role">B2B Client-Facing Delivery</p>
+        <div class="about-body">
+          <p>Triple C Method is built on a simple observation — most B2B service businesses over-invest in what they deliver and under-invest in how it is perceived.</p>
+          <p>The discipline we practise borrows from client psychology, delivery operations, and commercial strategy to close the gap between the value you create and the value your client actually feels. The Triple C Method is the operational foundation of that work — the delivery layer that makes everything else possible.</p>
+          <p>We work with a small number of clients at a time. That is by design. The work is specific, applied, and hands-on — not a course you buy and never finish.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ========== END ABOUT ========== -->
+
+<!-- ========== FOOTER ========== -->
+<footer id="footer" aria-label="Site footer">
+  <div class="footer-inner">
+
+    <a href="#" class="footer-logo" aria-label="Triple C Method — home">
+      <svg width="28" height="26" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="7" r="7" fill="white"/>
+        <circle cx="7" cy="37" r="6" fill="none" stroke="white" stroke-width="2"/>
+        <circle cx="41" cy="37" r="6" fill="none" stroke="white" stroke-width="2"/>
+      </svg>
+      <span class="footer-logo-text">Triple C Method<span style="font-size:0.6em; vertical-align:0.5em; font-weight:400; letter-spacing:0;">™</span></span>
+    </a>
+
+    <span class="footer-copy">© <span id="footer-year"></span> Triple C Method · Sofia, Bulgaria</span>
+
+  </div>
+</footer>
+<!-- ========== END FOOTER ========== -->
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================
+     1. SCROLL PROGRESS BAR
+     ========================================== */
+
+  var bar = document.getElementById('progress-bar');
+
+  function updateProgress() {
+    var scrollTop  = window.scrollY || document.documentElement.scrollTop;
+    var docH       = document.documentElement.scrollHeight - window.innerHeight;
+    var pct        = docH > 0 ? (scrollTop / docH) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+
+  /* ==========================================
+     2. NAV SCROLL STATE
+     ========================================== */
+
+  var nav = document.getElementById('nav');
+
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', (window.scrollY || window.pageYOffset) > 20);
+  }, { passive: true });
+
+
+  /* ==========================================
+     3. VIDEO MODAL
+     ========================================== */
+
+  var VIDEO_SRC = 'https://embed.voomly.com/embed/assets/embed.html?videoId=moqpVkfUncEEiFlO1s1i4DePhUldHVdc4Ny8GYBPPzLR1j1sU&videoRatio=1.777778&type=v&skinColor=rgba(0%2C31%2C100%2C1)';
+
+  var modal      = document.getElementById('modal');
+  var openBtn    = document.getElementById('open-video');
+  var openBtn2   = document.getElementById('open-video-2');
+  var closeBtn   = document.getElementById('close-modal');
+  var videoWrap  = document.getElementById('modal-video-wrap');
+  var modalCta   = document.getElementById('modal-cta-link');
+  var lastFocus;
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    /* Inject fresh iframe every time */
+    var iframe = document.createElement('iframe');
+    iframe.src = VIDEO_SRC;
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    videoWrap.appendChild(iframe);
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    /* Remove iframe entirely to stop playback */
+    videoWrap.innerHTML = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  modal.setAttribute('aria-hidden', 'true');
+
+  if (openBtn) {
+    openBtn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+    openBtn.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+    });
+  }
+
+  /* Close modal-cta without dismissing modal */
+  if (modalCta) {
+    modalCta.addEventListener('click', function () { closeModal(); });
+  }
+
+  if (openBtn2) openBtn2.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  /* Click outside inner box to close */
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  /* Escape key */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+
+  /* ==========================================
+     4. SCROLL ANIMATIONS — IntersectionObserver
+     ========================================== */
+
+  var animEls = document.querySelectorAll(
+    '.pain-card, .mechanism-col, .cred-card, .who-group, .about-col'
+  );
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+
+        var el      = entry.target;
+        /* Stagger by position among siblings */
+        var siblings = Array.from(el.parentElement.children);
+        var idx      = siblings.indexOf(el);
+
+        setTimeout(function () {
+          el.classList.add('visible');
+        }, idx * 120);
+
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.05 });
+
+    animEls.forEach(function (el) { observer.observe(el); });
+  } else {
+    /* Fallback for old browsers */
+    animEls.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+
+  /* ==========================================
+     5. DYNAMIC FOOTER YEAR
+     ========================================== */
+
+  var yearEl = document.getElementById('footer-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+
+  /* ==========================================
+     6. ROTATING WORD — MailerLite slide-up style
+     ========================================== */
+
+  var words   = ['complexity', 'consultants', 'jargon', 'chaos', 'guesswork'];
+  var wordIdx = 0;
+  var wordEl  = document.getElementById('rotating-word');
+
+  if (wordEl) {
+    function rotateWord() {
+      wordIdx = (wordIdx + 1) % words.length;
+
+      /* --- Exit: slide up and fade out --- */
+      wordEl.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+      wordEl.style.transform  = 'translateY(-110%)';
+      wordEl.style.opacity    = '0';
+
+      setTimeout(function () {
+        /* Swap text while off-screen below */
+        wordEl.textContent      = words[wordIdx];
+        wordEl.style.transition = 'none';
+        wordEl.style.transform  = 'translateY(110%)';
+        wordEl.style.opacity    = '0';
+
+        /* Force layout recalculation */
+        void wordEl.getBoundingClientRect();
+
+        /* --- Enter: slide up into view --- */
+        wordEl.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+        wordEl.style.transform  = 'translateY(0)';
+        wordEl.style.opacity    = '1';
+      }, 460);
+    }
+
+    setInterval(rotateWord, 2800);
+  }
+
+}());
+</script>
+
+</body>
+</html>
