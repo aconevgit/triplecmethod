@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Triple C Method | Visual Lock</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <script src="https://embed.voomly.com/embed/embed-build.js"></script>
   <style>
     /* ===== CSS VARIABLES ===== */
     :root {
@@ -295,50 +296,59 @@
       z-index: 1000;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
 
-    .modal-content {
+    .modal-wrap {
       position: relative;
-      width: 90%;
-      max-width: 960px;
-      max-height: 90vh;
-      background: #000;
-      border-radius: var(--border-radius-card);
-      overflow: hidden;
-    }
-
-    .modal iframe {
       width: 100%;
-      height: 100%;
-      min-height: 300px;
-      aspect-ratio: 16 / 9;
-      border: none;
+      max-width: 860px;
     }
 
     .close-modal {
       position: absolute;
-      top: 1rem;
-      right: 1.5rem;
+      top: -52px;
+      right: 0;
       color: white;
-      font-size: 2rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      background: rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.12);
       width: 44px;
       height: 44px;
       border-radius: 50%;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: var(--transition-default);
+      transition: background 0.2s ease;
+      z-index: 10;
     }
 
-    .close-modal:hover {
-      background: rgba(0,0,0,0.75);
-    }
+    .close-modal:hover { background: rgba(255,255,255,0.24); }
 
     .close-modal:focus-visible {
       outline: 2px solid white;
       outline-offset: 2px;
+    }
+
+    .modal-video-box {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+
+    .modal-video-box .voomly-embed {
+      width: 100% !important;
+      height: 100% !important;
+      aspect-ratio: unset !important;
+      border-radius: 0 !important;
+    }
+
+    .modal-cta-row {
+      margin-top: 24px;
+      text-align: center;
     }
 
     /* ===== PAIN SECTION ===== */
@@ -886,9 +896,15 @@
 </main>
 
 <div id="videoModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-wrap">
     <button class="close-modal" id="closeModalBtn" aria-label="Close video">&times;</button>
-    <iframe id="vslIframe" width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" title="VSL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="modal-video-box">
+      <div class="voomly-embed" data-id="moqpVkfUncEEiFlO1s1i4DePhUldHVdc4Ny8GYBPPzLR1j1sU" data-ratio="1.777778" data-type="v" data-skin-color="rgba(0,31,100,1)" data-shadow="" data-native-fullscreen="true"></div>
+    </div>
+    <div class="modal-cta-row">
+      <p style="font-size:16px; font-weight:400; color:#ffffff; margin-bottom:16px; letter-spacing:-0.01em;">Your model, market, and needs are unique.</p>
+      <a href="#contact" id="modal-cta-link" style="display:inline-flex; align-items:center; gap:8px; background:#4f46e5; color:#ffffff; font-size:15px; font-weight:600; padding:12px 24px; border-radius:100px; text-decoration:none; letter-spacing:-0.01em; transition:background 0.2s ease;">Book a meeting <span style="font-style:normal;">→</span></a>
+    </div>
   </div>
 </div>
 
@@ -896,19 +912,19 @@
   const modal = document.getElementById('videoModal');
   const watchBtn = document.getElementById('watchVideoBtn');
   const closeBtn = document.getElementById('closeModalBtn');
-  const iframe = document.getElementById('vslIframe');
+  const modalCtaLink = document.getElementById('modal-cta-link');
 
   function openModal() {
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    iframe.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1";
   }
 
   function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = '';
-    iframe.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0";
   }
+
+  modalCtaLink.addEventListener('click', function () { closeModal(); });
 
   var bar = document.getElementById('progress-bar');
   window.addEventListener('scroll', function () {
